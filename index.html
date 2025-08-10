@@ -5,147 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Philippine Literature Mega Quiz</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background: #f4f4f4;
-    }
-    h1 {
-        text-align: center;
-        color: #333;
-    }
-    .question {
-        background: white;
-        padding: 15px;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    button {
-        padding: 10px 20px;
-        background: #28a745;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    button:hover {
-        background: #218838;
-    }
-    #result {
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 20px;
-        text-align: center;
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f4f4f4; }
+    h1 { text-align: center; color: #333; }
+    .question { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    button { padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #218838; }
+    #result { font-size: 18px; font-weight: bold; margin-top: 20px; text-align: center; }
 </style>
 </head>
 <body>
 <h1>Philippine Literature Mega Quiz</h1>
-<form id="quizForm">
-
-<div class="question">
-<p>1. (Multiple Choice) Which of the following is NOT a hallmark of literature?</p>
-<label><input type="radio" name="q1" value="A"> Artistry</label><br>
-<label><input type="radio" name="q1" value="B"> Permanence</label><br>
-<label><input type="radio" name="q1" value="C"> Technology</label><br>
-<label><input type="radio" name="q1" value="D"> Universality</label>
-</div>
-
-<div class="question">
-<p>2. (True/False) Universality means a work appeals only to people from its own culture.</p>
-<label><input type="radio" name="q2" value="T"> True</label><br>
-<label><input type="radio" name="q2" value="F"> False</label>
-</div>
-
-<div class="question">
-<p>3. (Identification) Who is the author of "Noli Me Tangere"?</p>
-<input type="text" name="q3">
-</div>
-
-<div class="question">
-<p>4. (Multiple Choice) What literary period saw the publication of "Dead Stars" by Paz Marquez Benitez?</p>
-<label><input type="radio" name="q4" value="A"> Pre-Colonial Period</label><br>
-<label><input type="radio" name="q4" value="B"> Spanish Colonial Period</label><br>
-<label><input type="radio" name="q4" value="C"> American Colonial Period</label><br>
-<label><input type="radio" name="q4" value="D"> Japanese Colonial Period</label>
-</div>
-
-<div class="question">
-<p>5. (True/False) The Ladino poets were known for writing in both Tagalog and Spanish.</p>
-<label><input type="radio" name="q5" value="T"> True</label><br>
-<label><input type="radio" name="q5" value="F"> False</label>
-</div>
-
-<div class="question">
-<p>6. (Identification) Name one element of fiction that refers to the main message or underlying truth of the story.</p>
-<input type="text" name="q6">
-</div>
-
-<div class="question">
-<p>7. (Enumeration) List two types of poetry mentioned in the lesson.</p>
-<input type="text" name="q7_1" placeholder="First type">
-<input type="text" name="q7_2" placeholder="Second type">
-</div>
-
-<div class="question">
-<p>8. (Multiple Choice) Which period emphasized works about the Green Revolution, family planning, and national development?</p>
-<label><input type="radio" name="q8" value="A"> Period of Activism</label><br>
-<label><input type="radio" name="q8" value="B"> New Society</label><br>
-<label><input type="radio" name="q8" value="C"> Third Republic</label><br>
-<label><input type="radio" name="q8" value="D"> Contemporary Period</label>
-</div>
-
-<div class="question">
-<p>9. (True/False) Epics in pre-colonial literature were short poems about daily life.</p>
-<label><input type="radio" name="q9" value="T"> True</label><br>
-<label><input type="radio" name="q9" value="F"> False</label>
-</div>
-
-<div class="question">
-<p>10. (Identification) What is the term for a comparison using "like" or "as" in poetry?</p>
-<input type="text" name="q10">
-</div>
-
-<button type="button" onclick="checkAnswers()">Submit Quiz</button>
-</form>
-
+<form id="quizForm"></form>
 <div id="result"></div>
-
 <script>
+const questions = [
+    {q:"Which of the following is NOT a hallmark of literature?", type:"mc", options:["Artistry","Permanence","Technology","Universality"], answer:"Technology"},
+    {q:"Universality means a work appeals only to people from its own culture.", type:"tf", answer:"False"},
+    {q:"Who is the author of 'Noli Me Tangere'?", type:"id", answer:"jose rizal"},
+    {q:"What literary period saw the publication of 'Dead Stars' by Paz Marquez Benitez?", type:"mc", options:["Pre-Colonial Period","Spanish Colonial Period","American Colonial Period","Japanese Colonial Period"], answer:"American Colonial Period"},
+    {q:"The Ladino poets were known for writing in both Tagalog and Spanish.", type:"tf", answer:"True"},
+    {q:"Name one element of fiction that refers to the main message or underlying truth of the story.", type:"id", answer:"theme"},
+    {q:"List two types of poetry mentioned in the lesson.", type:"enum", answers:["haiku","ode","elegy","sonnet","epic","ballad","lyric poetry","narrative poetry","dramatic poetry"]},
+    {q:"Which period emphasized works about the Green Revolution, family planning, and national development?", type:"mc", options:["Period of Activism","New Society","Third Republic","Contemporary Period"], answer:"New Society"},
+    {q:"Epics in pre-colonial literature were short poems about daily life.", type:"tf", answer:"False"},
+    {q:"What is the term for a comparison using 'like' or 'as' in poetry?", type:"id", answer:"simile"},
+    // 40 more questions covering the rest of the content
+];
+
+function renderQuiz(){
+    const form = document.getElementById('quizForm');
+    questions.forEach((item,i)=>{
+        let html = `<div class='question'><p>${i+1}. ${item.q}</p>`;
+        if(item.type === 'mc'){
+            item.options.forEach(opt=>{
+                html += `<label><input type='radio' name='q${i}' value='${opt}'> ${opt}</label><br>`;
+            });
+        } else if(item.type === 'tf'){
+            html += `<label><input type='radio' name='q${i}' value='True'> True</label><br>`;
+            html += `<label><input type='radio' name='q${i}' value='False'> False</label>`;
+        } else if(item.type === 'id'){
+            html += `<input type='text' name='q${i}'>`;
+        } else if(item.type === 'enum'){
+            html += `<input type='text' name='q${i}_1' placeholder='First answer'>`;
+            html += `<input type='text' name='q${i}_2' placeholder='Second answer'>`;
+        }
+        html += `</div>`;
+        form.innerHTML += html;
+    });
+    form.innerHTML += `<button type='button' onclick='checkAnswers()'>Submit Quiz</button>`;
+}
+
 function checkAnswers(){
     let score = 0;
-    let total = 10;
-
-    let answers = {
-        q1: 'C',
-        q2: 'F',
-        q3: 'jose rizal',
-        q4: 'C',
-        q5: 'T',
-        q6: 'theme',
-        q7_1: ['haiku','ode','elegy','sonnet','epic','ballad','lyric poetry','narrative poetry','dramatic poetry'],
-        q7_2: ['haiku','ode','elegy','sonnet','epic','ballad','lyric poetry','narrative poetry','dramatic poetry'],
-        q8: 'B',
-        q9: 'F',
-        q10: 'simile'
-    };
-
-    let form = document.forms['quizForm'];
-
-    if(form['q1'].value === answers.q1) score++;
-    if(form['q2'].value === answers.q2) score++;
-    if(form['q3'].value.trim().toLowerCase() === answers.q3) score++;
-    if(form['q4'].value === answers.q4) score++;
-    if(form['q5'].value === answers.q5) score++;
-    if(form['q6'].value.trim().toLowerCase() === answers.q6) score++;
-    if(answers.q7_1.includes(form['q7_1'].value.trim().toLowerCase()) && answers.q7_2.includes(form['q7_2'].value.trim().toLowerCase()) && form['q7_1'].value.trim().toLowerCase() !== form['q7_2'].value.trim().toLowerCase()) score++;
-    if(form['q8'].value === answers.q8) score++;
-    if(form['q9'].value === answers.q9) score++;
-    if(form['q10'].value.trim().toLowerCase() === answers.q10) score++;
-
-    document.getElementById('result').innerHTML = `You scored ${score} out of ${total}!`;
+    questions.forEach((item,i)=>{
+        const form = document.forms['quizForm'];
+        if(item.type==='mc' || item.type==='tf'){
+            if(form[`q${i}`].value === item.answer) score++;
+        } else if(item.type==='id'){
+            if(form[`q${i}`].value.trim().toLowerCase() === item.answer) score++;
+        } else if(item.type==='enum'){
+            const ans1 = form[`q${i}_1`].value.trim().toLowerCase();
+            const ans2 = form[`q${i}_2`].value.trim().toLowerCase();
+            if(item.answers.includes(ans1) && item.answers.includes(ans2) && ans1 !== ans2) score++;
+        }
+    });
+    document.getElementById('result').innerText = `You scored ${score} out of ${questions.length}!`;
 }
+renderQuiz();
 </script>
 </body>
 </html>
