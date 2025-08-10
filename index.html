@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Philippine Literature Mega Quiz</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #f4f4f4;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    .question {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    button {
+        padding: 10px 20px;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #218838;
+    }
+    #result {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<h1>Philippine Literature Mega Quiz</h1>
+<form id="quizForm">
+
+<div class="question">
+<p>1. (Multiple Choice) Which of the following is NOT a hallmark of literature?</p>
+<label><input type="radio" name="q1" value="A"> Artistry</label><br>
+<label><input type="radio" name="q1" value="B"> Permanence</label><br>
+<label><input type="radio" name="q1" value="C"> Technology</label><br>
+<label><input type="radio" name="q1" value="D"> Universality</label>
+</div>
+
+<div class="question">
+<p>2. (True/False) Universality means a work appeals only to people from its own culture.</p>
+<label><input type="radio" name="q2" value="T"> True</label><br>
+<label><input type="radio" name="q2" value="F"> False</label>
+</div>
+
+<div class="question">
+<p>3. (Identification) Who is the author of "Noli Me Tangere"?</p>
+<input type="text" name="q3">
+</div>
+
+<div class="question">
+<p>4. (Multiple Choice) What literary period saw the publication of "Dead Stars" by Paz Marquez Benitez?</p>
+<label><input type="radio" name="q4" value="A"> Pre-Colonial Period</label><br>
+<label><input type="radio" name="q4" value="B"> Spanish Colonial Period</label><br>
+<label><input type="radio" name="q4" value="C"> American Colonial Period</label><br>
+<label><input type="radio" name="q4" value="D"> Japanese Colonial Period</label>
+</div>
+
+<div class="question">
+<p>5. (True/False) The Ladino poets were known for writing in both Tagalog and Spanish.</p>
+<label><input type="radio" name="q5" value="T"> True</label><br>
+<label><input type="radio" name="q5" value="F"> False</label>
+</div>
+
+<div class="question">
+<p>6. (Identification) Name one element of fiction that refers to the main message or underlying truth of the story.</p>
+<input type="text" name="q6">
+</div>
+
+<div class="question">
+<p>7. (Enumeration) List two types of poetry mentioned in the lesson.</p>
+<input type="text" name="q7_1" placeholder="First type">
+<input type="text" name="q7_2" placeholder="Second type">
+</div>
+
+<div class="question">
+<p>8. (Multiple Choice) Which period emphasized works about the Green Revolution, family planning, and national development?</p>
+<label><input type="radio" name="q8" value="A"> Period of Activism</label><br>
+<label><input type="radio" name="q8" value="B"> New Society</label><br>
+<label><input type="radio" name="q8" value="C"> Third Republic</label><br>
+<label><input type="radio" name="q8" value="D"> Contemporary Period</label>
+</div>
+
+<div class="question">
+<p>9. (True/False) Epics in pre-colonial literature were short poems about daily life.</p>
+<label><input type="radio" name="q9" value="T"> True</label><br>
+<label><input type="radio" name="q9" value="F"> False</label>
+</div>
+
+<div class="question">
+<p>10. (Identification) What is the term for a comparison using "like" or "as" in poetry?</p>
+<input type="text" name="q10">
+</div>
+
+<button type="button" onclick="checkAnswers()">Submit Quiz</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+function checkAnswers(){
+    let score = 0;
+    let total = 10;
+
+    let answers = {
+        q1: 'C',
+        q2: 'F',
+        q3: 'jose rizal',
+        q4: 'C',
+        q5: 'T',
+        q6: 'theme',
+        q7_1: ['haiku','ode','elegy','sonnet','epic','ballad','lyric poetry','narrative poetry','dramatic poetry'],
+        q7_2: ['haiku','ode','elegy','sonnet','epic','ballad','lyric poetry','narrative poetry','dramatic poetry'],
+        q8: 'B',
+        q9: 'F',
+        q10: 'simile'
+    };
+
+    let form = document.forms['quizForm'];
+
+    if(form['q1'].value === answers.q1) score++;
+    if(form['q2'].value === answers.q2) score++;
+    if(form['q3'].value.trim().toLowerCase() === answers.q3) score++;
+    if(form['q4'].value === answers.q4) score++;
+    if(form['q5'].value === answers.q5) score++;
+    if(form['q6'].value.trim().toLowerCase() === answers.q6) score++;
+    if(answers.q7_1.includes(form['q7_1'].value.trim().toLowerCase()) && answers.q7_2.includes(form['q7_2'].value.trim().toLowerCase()) && form['q7_1'].value.trim().toLowerCase() !== form['q7_2'].value.trim().toLowerCase()) score++;
+    if(form['q8'].value === answers.q8) score++;
+    if(form['q9'].value === answers.q9) score++;
+    if(form['q10'].value.trim().toLowerCase() === answers.q10) score++;
+
+    document.getElementById('result').innerHTML = `You scored ${score} out of ${total}!`;
+}
+</script>
+</body>
+</html>
